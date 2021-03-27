@@ -8,24 +8,33 @@ import pytest
 
 
 def autorization(driver):
-    driver.find_element_by_class_name(basic_locators.AUTH_BUTTON_LOCATOR).click()
+    if (driver.find_element_by_xpath(basic_locators.CHECK_LANGUAGE_LOCATOR)):
+        driver.find_element_by_xpath(basic_locators.AUTH_RU_BUTTON_LOCATOR).click()
+    else:
+        driver.find_element_by_xpath(basic_locators.AUTH_EN_BUTTON_LOCATOR).click()
     element = driver.find_element_by_name(basic_locators.AUTH_EMAIL_ROW_LOCATOR)
     element.send_keys("dr.tarasenko2013@yandex.ru")
     element = driver.find_element_by_name(basic_locators.AUTH_PASSWOR_ROW_LOCATOR)
     element.send_keys("M0zamb1qu3H3r3")
-    driver.find_element_by_class_name(basic_locators.LOGGIN_BUTTON_LOCATOR).click()
+    try:
+        driver.find_element_by_xpath(basic_locators.LOGGIN_RU_BUTTON_LOCATOR).click()
+    except:
+        driver.find_element_by_xpath(basic_locators.LOGGIN_EN_BUTTON_LOCATOR).click()
     
-
 @pytest.mark.UI
 def test_logIN(driver):
-    time.sleep(3)
-    driver.find_element_by_class_name(basic_locators.AUTH_BUTTON_LOCATOR).click()
-    time.sleep(2)
+    if (driver.find_element_by_xpath(basic_locators.CHECK_LANGUAGE_LOCATOR)):
+        driver.find_element_by_xpath(basic_locators.AUTH_RU_BUTTON_LOCATOR).click()
+    else:
+        driver.find_element_by_xpath(basic_locators.AUTH_EN_BUTTON_LOCATOR).click()
     element = driver.find_element_by_name(basic_locators.AUTH_EMAIL_ROW_LOCATOR)
     element.send_keys("dr.tarasenko2013@yandex.ru")
     element = driver.find_element_by_name(basic_locators.AUTH_PASSWOR_ROW_LOCATOR)
     element.send_keys("M0zamb1qu3H3r3")
-    driver.find_element_by_class_name(basic_locators.LOGGIN_BUTTON_LOCATOR).click()
+    try:
+        driver.find_element_by_xpath(basic_locators.LOGGIN_RU_BUTTON_LOCATOR).click()
+    except:
+        driver.find_element_by_xpath(basic_locators.LOGGIN_EN_BUTTON_LOCATOR).click()
     time.sleep(3)
 
 
