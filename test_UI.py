@@ -8,19 +8,14 @@ import pytest
 
 
 def autorization(driver):
-<<<<<<< HEAD
     if (driver.find_element_by_xpath(basic_locators.CHECK_LANGUAGE_LOCATOR)):
         driver.find_element_by_xpath(basic_locators.AUTH_RU_BUTTON_LOCATOR).click()
     else:
         driver.find_element_by_xpath(basic_locators.AUTH_EN_BUTTON_LOCATOR).click()
-=======
-    driver.find_element_by_class_name(basic_locators.AUTH_BUTTON_LOCATOR).click()
->>>>>>> 4ab33b487a5272b4de11b342b03a2a575bc1f3a7
     element = driver.find_element_by_name(basic_locators.AUTH_EMAIL_ROW_LOCATOR)
     element.send_keys("dr.tarasenko2013@yandex.ru")
     element = driver.find_element_by_name(basic_locators.AUTH_PASSWOR_ROW_LOCATOR)
     element.send_keys("M0zamb1qu3H3r3")
-<<<<<<< HEAD
     try:
         driver.find_element_by_xpath(basic_locators.LOGGIN_RU_BUTTON_LOCATOR).click()
     except:
@@ -32,28 +27,14 @@ def test_logIN(driver):
         driver.find_element_by_xpath(basic_locators.AUTH_RU_BUTTON_LOCATOR).click()
     else:
         driver.find_element_by_xpath(basic_locators.AUTH_EN_BUTTON_LOCATOR).click()
-=======
-    driver.find_element_by_class_name(basic_locators.LOGGIN_BUTTON_LOCATOR).click()
-    
-
-@pytest.mark.UI
-def test_logIN(driver):
-    time.sleep(3)
-    driver.find_element_by_class_name(basic_locators.AUTH_BUTTON_LOCATOR).click()
-    time.sleep(2)
->>>>>>> 4ab33b487a5272b4de11b342b03a2a575bc1f3a7
     element = driver.find_element_by_name(basic_locators.AUTH_EMAIL_ROW_LOCATOR)
     element.send_keys("dr.tarasenko2013@yandex.ru")
     element = driver.find_element_by_name(basic_locators.AUTH_PASSWOR_ROW_LOCATOR)
     element.send_keys("M0zamb1qu3H3r3")
-<<<<<<< HEAD
     try:
         driver.find_element_by_xpath(basic_locators.LOGGIN_RU_BUTTON_LOCATOR).click()
     except:
         driver.find_element_by_xpath(basic_locators.LOGGIN_EN_BUTTON_LOCATOR).click()
-=======
-    driver.find_element_by_class_name(basic_locators.LOGGIN_BUTTON_LOCATOR).click()
->>>>>>> 4ab33b487a5272b4de11b342b03a2a575bc1f3a7
     time.sleep(3)
 
 

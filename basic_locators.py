@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 AUTH_RU_BUTTON_LOCATOR = ('//div[contains(text(), "Войти")]')
 AUTH_EN_BUTTON_LOCATOR = ('//div[contains(text(), "Log In")]')
 CHECK_LANGUAGE_LOCATOR = ('//div[contains(text(), "En")]')
@@ -9,14 +9,6 @@ LOGGIN_EN_BUTTON_LOCATOR = ('//html/body/div/div/div/div/div/div[contains(text()
 
 
 USER_INF_LOCATOR = ('js-head-balance')
-=======
-AUTH_BUTTON_LOCATOR = ('responseHead-module-button-1BMAy4')
-AUTH_EMAIL_ROW_LOCATOR = ('email')
-AUTH_PASSWOR_ROW_LOCATOR = ('password')
-LOGGIN_BUTTON_LOCATOR = ('authForm-module-button-2G6lZu')
-
-USER_INF_LOCATOR = ('right-module-userNameWrap-34ibLS')
->>>>>>> 4ab33b487a5272b4de11b342b03a2a575bc1f3a7
 LOGUT_BUTTON_LOCATOR = ('//a[@href="/logout"]')
 
 PROFILE_BUTTON_MENU_LOCATOR = ('//a[@href="/profile"]')
