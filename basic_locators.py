@@ -4,8 +4,8 @@ AUTH_EN_BUTTON_LOCATOR = ('//div[contains(text(), "Log In")]')
 CHECK_LANGUAGE_LOCATOR = ('//div[contains(text(), "En")]')
 AUTH_EMAIL_ROW_LOCATOR = ('email')
 AUTH_PASSWOR_ROW_LOCATOR = ('password')
-LOGGIN_RU_BUTTON_LOCATOR = ('//html/body/div/div/div/div/div/div[contains(text(), "Войти")]')
-LOGGIN_EN_BUTTON_LOCATOR = ('//html/body/div/div/div/div/div/div[contains(text(), "Lof  In")]')
+LOGGIN_RU_BUTTON_LOCATOR = ('//div[@class = "js-target-common-modals"]//div[contains(text(), "Войти")]')
+LOGGIN_EN_BUTTON_LOCATOR = ('//div[@class = "js-target-common-modals"]//div[contains(text(), "Log In")]')
 
 
 USER_INF_LOCATOR = ('js-head-balance')
