@@ -55,7 +55,7 @@ class TestOne(BaseCase):
         self.campaign_page.context_config(category = "ads",context = "таргет,маркетинг,реклама")
         time.sleep(4)
         self.campaign_page.group_config(group="таргетированная реклама")
-        time.sleep(4)
+        time.sleep(10)
         self.campaign_page.change_payment_type("Impressions")
         time.sleep(4)
         self.campaign_page.set_budget(daily = "200", total = '10000')
