@@ -18,19 +18,6 @@ class StartPage(object):
     def __init__(self, driver):
         self.driver = driver
 
-    @pytest.fixture
-    def logIn(self,driver):
-        try:
-            assert "Рекламная платформа myTarget — Сервис таргетированной рекламы" not in driver.title
-        except AssertionError:
-            self.click(self.locators.AUTH_RU_BUTTON_LOCATOR)
-            self.input(self.locators.AUTH_EMAIL_ROW_LOCATOR, "dr.tarasenko2013@yandex.ru")
-            self.input(self.locators.AUTH_PASSWOR_ROW_LOCATOR, "M0zamb1qu3H3r3")
-            self.click(self.locators.LOGGIN_RU_BUTTON_LOCATOR)
-            time.sleep(2)
-        yield
-    
-
     def find(self, locator, timeout=None):
         return self.wait(timeout).until(EC.presence_of_element_located(locator))
 
@@ -59,12 +46,8 @@ class StartPage(object):
         element.clear()
 
     def autorization(self, email, password):
-        try: 
-            assert "Рекламная платформа myTarget — Сервис таргетированной рекламы" not in self.driver.title
-        except AssertionError:
-
-            self.click(self.locators.AUTH_RU_BUTTON_LOCATOR)
-            self.input(self.locators.AUTH_EMAIL_ROW_LOCATOR, email)
-            self.input(self.locators.AUTH_PASSWOR_ROW_LOCATOR, password)
-            self.click(self.locators.LOGGIN_RU_BUTTON_LOCATOR)
-            time.sleep(2)
+        self.click(self.locators.AUTH_RU_BUTTON_LOCATOR)
+        self.input(self.locators.AUTH_EMAIL_ROW_LOCATOR, email)
+        self.input(self.locators.AUTH_PASSWOR_ROW_LOCATOR, password)
+        self.click(self.locators.LOGGIN_RU_BUTTON_LOCATOR)
+        self.driver.implicitly_wait(3)

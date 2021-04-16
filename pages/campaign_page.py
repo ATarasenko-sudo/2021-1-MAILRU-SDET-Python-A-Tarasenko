@@ -5,18 +5,22 @@ from selenium.webdriver.common.action_chains import ActionChains
 import pytest
 import time
 
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+
+
 class CampaignPage(StartPage):
 
 
     locators = CampaignPageLocators()
-    #url = 'https://play.google.com/store/apps/details?id=com.supercell.brawlstars&hl=ru&gl=US'
+   
 
     def choose_campaign_object(self):
-        #self.autorization("dr.tarasenko2013@yandex.ru","M0zamb1qu3H3r3")
         self.click(self.locators.CREATE_CAMPAIGN_LOCATOR)
         self.click(self.locators.TRAFFIC_LOCATOR)
         self.input(self.locators.ENTER_URL_LOCATOR,'https://target.my.com/')
-        time.sleep(3)
+        WebDriverWait(self.driver, 6).until(EC.presence_of_element_located(self.locators.ENTER_URL_LOCATOR))
 
 
     def choose_age(self,age1,age2):
@@ -28,9 +32,9 @@ class CampaignPage(StartPage):
 
     def add_location(self, country):
         self.click(self.locators.OPEN_LOCATION_LOCATOR)
-        time.sleep(1)
+        WebDriverWait(self.driver, 6).until(EC.presence_of_element_located(self.locators.INPUT_REGION_LOCATOR))
         self.input(self.locators.INPUT_REGION_LOCATOR, country)
-        time.sleep(1)
+        WebDriverWait(self.driver, 6).until(EC.presence_of_element_located(self.locators.ADD_REGION_LOCATOR))
         self.click(self.locators.ADD_REGION_LOCATOR)
 
     def change_payment_type(self, payment):
@@ -56,8 +60,10 @@ class CampaignPage(StartPage):
     def group_config(self, group):
         self.click(self.locators.GROUP_CONFIG_LOCATOR)
         self.input(self.locators.ENTER_GROUP_LOCATOR, group)
+        
         self.click(self.locators.SELECT_GROUP_LOCATOR)
-        self.click(self.locators.CREATE_GRIUP_LOCATOR)
+        WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(self.locators.CREATE_GROUP_LOCATOR))
+        self.click(self.locators.CREATE_GROUP_LOCATOR)
        
 
 
@@ -68,15 +74,14 @@ class CampaignPage(StartPage):
        
     def upload(self, file_path):
         self.click(self.locators.ADS_FORMAT_LOCATOR)
-        time.sleep(2)
+        self.driver.implicitly_wait(3)
 
 
         input_field = self.find(self.locators.BIG_IMG_LOCATOR)
         element = input_field.find_element(*self.locators.UPLOAD_LOCATOR)
         element.send_keys(file_path)
 
-        small_img = self.input(self.locators.SMALL_IMG_LOCATOR,file_path) # '/home/ondrey/Desktop/autotest/HW2.1/img/87497-1.jpg'
-
+        small_img = self.input(self.locators.SMALL_IMG_LOCATOR,file_path) 
         self.click(self.locators.CROPP_SUBMIT_LOCATOR)
 
     def ad_info(self, ad_title, ad_text):

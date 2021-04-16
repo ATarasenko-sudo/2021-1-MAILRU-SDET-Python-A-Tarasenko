@@ -1,11 +1,13 @@
 import pytest
-import time
 import os
 
 from base import BaseCase
 
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver import ActionChains
+
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 
@@ -17,60 +19,68 @@ class TestOne(BaseCase):
    
     @pytest.fixture(scope = 'function')
     def logIn(self, log = 'dr.tarasenko2013@yandex.ru', pas = 'M0zamb1qu3H3r3'):
-        try: 
-            assert "Рекламная платформа myTarget — Сервис таргетированной рекламы" not in self.driver.title
-        except AssertionError:
-            self.start_page.click(self.start_page.locators.CHECK_LANGUAGE_LOCATOR)
-            time.sleep(2)
-            self.start_page.click(self.start_page.locators.AUTH_EN_BUTTON_LOCATOR)
-            self.start_page.input(self.start_page.locators.AUTH_EMAIL_ROW_LOCATOR, log)
-            self.start_page.input(self.start_page.locators.AUTH_PASSWOR_ROW_LOCATOR, pas)
-            self.start_page.click(self.start_page.locators.LOGGIN_EN_BUTTON_LOCATOR)
-            time.sleep(2)
+        self.start_page.click(self.start_page.locators.CHECK_LANGUAGE_LOCATOR)
+        element = WebDriverWait(self.driver, 2).until(EC.presence_of_element_located(self.start_page.locators.AUTH_EN_BUTTON_LOCATOR))
+        self.start_page.click(self.start_page.locators.AUTH_EN_BUTTON_LOCATOR)
+        self.start_page.input(self.start_page.locators.AUTH_EMAIL_ROW_LOCATOR, log)
+        self.start_page.input(self.start_page.locators.AUTH_PASSWOR_ROW_LOCATOR, pas)
+        self.start_page.click(self.start_page.locators.LOGGIN_EN_BUTTON_LOCATOR)
+        self.driver.implicitly_wait(3)
         yield
-
+    
+    
     @pytest.mark.UI
-    #@pytest.mark.skip()
     @pytest.mark.parametrize("email", [('111'), ('dr.tarasenko2013@yandex.ru')])
     @pytest.mark.parametrize("paswrd", [('bar')])
     def test_autorization(self, email, paswrd):
-        time.sleep(5)
+        WebDriverWait(self.driver, 3).until(EC.presence_of_element_located(self.start_page.locators.AUTH_RU_BUTTON_LOCATOR))
         self.start_page.autorization(email = email, password= paswrd)
         assert self.failed_autorization_page.fail_message_location() == "Invalid login or password"
     
+    
     @pytest.mark.UI
-    #@pytest.mark.skip()
     def test_campaign_config(self, logIn,file_path):
         self.campaign_page.choose_campaign_object()
-
-        time.sleep(10)
-
+        self.driver.implicitly_wait(3)
+        
         self.campaign_page.set_campaign_name(name = "target")
-        time.sleep(4)
+        element = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(self.campaign_page.locators.CAMPAIGN_NAME_LOCATOR))
+        
         self.campaign_page.choose_age(13,23)
-        time.sleep(4)
+        WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(self.campaign_page.locators.OPEN_SLIDER_LOCATOR))
+        
         self.campaign_page.add_location("Ukraine")
-        time.sleep(4)
-
+        WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(self.campaign_page.locators.OPEN_LOCATION_LOCATOR))
+        
         self.campaign_page.context_config(category = "ads",context = "таргет,маркетинг,реклама")
-        time.sleep(4)
-        self.campaign_page.group_config(group="таргетированная реклама")
-        time.sleep(10)
+        WebDriverWait(self.driver, 6).until(EC.presence_of_element_located(self.campaign_page.locators.OPEN_CURRENT_OPTIONS_LOCATOR))
+        
+        
+        WebDriverWait(self.driver, 6).until(EC.presence_of_element_located(self.campaign_page.locators.PAYMENT_LOCATOR))
         self.campaign_page.change_payment_type("Impressions")
-        time.sleep(4)
+        
+        
         self.campaign_page.set_budget(daily = "200", total = '10000')
-        time.sleep(4)
+        WebDriverWait(self.driver, 6).until(EC.presence_of_element_located(self.campaign_page.locators.DAILY_BUDGET_LOCATOR))
+        
         self.campaign_page.upload(file_path)
-        time.sleep(4)
+        self.driver.implicitly_wait(3)
+
+        
+        
         self.campaign_page.ad_info(ad_title = "foo", ad_text = "bar")
-        time.sleep(4)
+        WebDriverWait(self.driver, 6).until(EC.presence_of_element_located(self.campaign_page.locators.AD_TITLE_LOCATOR))
+        
         self.campaign_page.click(self.campaign_page.locators. SAVE_AD_LOCATOR)
+        WebDriverWait(self.driver, 6).until(EC.presence_of_element_located(self.campaign_page.locators.SAVE_AD_LOCATOR))
+
         self.campaign_page.click(self.campaign_page.locators.CREATE_NEW_CAMPAIGN_LOCATOR)
-        time.sleep(10)
+        self.driver.implicitly_wait(3)
+        
+        WebDriverWait(self.driver, 6).until(EC.presence_of_element_located(self.campaign_page.locators.CHECK_CAMPAIGN_LOCATOR))
         assert  self.start_page.find(self.campaign_page.locators.CHECK_CAMPAIGN_LOCATOR).text == "target"
     
     @pytest.mark.UI
-    #@pytest.mark.skip()
     def test_segment_config(self, logIn):
         self.segment_config_page.go_to_segments()
 
@@ -88,28 +98,25 @@ class TestOne(BaseCase):
 
             self.segment_config_page.search_object("TargetHunter")
             self.segment_config_page.add_object()
-            time.sleep(3)
+            WebDriverWait(self.driver, 6).until(EC.presence_of_element_located(self.segment_config_page.locators.ADD_SEGMENT_BUTTON_LOCATOR))
             self.segment_config_page.click(self.segment_config_page.locators.ADD_SEGMENT_BUTTON_LOCATOR)
-            time.sleep(2)
+            WebDriverWait(self.driver, 6).until(EC.presence_of_element_located(self.segment_config_page.locators.SEGMENT_NAME_FIELD_LOCATOR))
             self.segment_config_page.name_of_segment(name = "app and targetHunter segment")
             self.segment_config_page.submit_segment()
-            time.sleep(2)
+            self.driver.implicitly_wait(3)
             assert self.segment_config_page.check_segment_by_name() == "app and targetHunter segment"
-
+    
     @pytest.mark.UI
-    #@pytest.mark.skip()
     def test_delete_campaign(self, logIn):
         try:
             if self.start_page.find(self.campaign_page.locators.CHECK_CAMPAIGN_LOCATOR).text == "target":
                 self.campaign_menu_page.delete_campaign()
-                time.sleep(3)
+                self.driver.implicitly_wait(3)
         except TimeoutException:
             pass
 
-   
-
+    
     @pytest.mark.UI
-    #@pytest.mark.skip()
     def test_delete_segment(self, logIn):
         self.segment_config_page.go_to_segments()
         try:

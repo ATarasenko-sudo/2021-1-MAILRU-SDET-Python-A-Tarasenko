@@ -19,11 +19,9 @@ class CampaignPageLocators(StartPageLocators):
     CREATE_CAMPAIGN_LOCATOR = (By.XPATH, '//div[contains(text(), "Create campaign")]')
     TRAFFIC_LOCATOR = (By.XPATH, '//div[contains(text(), "Traffic")]')
     ENTER_URL_LOCATOR = (By.XPATH, '//div[@class="js-main-url-wrap"]//input')
-    #CREATE_NEW_COMPAIGN = (By.XPATH, '//a[@href="/campaign/new"]')
 
     CAMPAIGN_NAME_LOCATOR = (By.XPATH,'//div[@class = "campaign-name"]//div[@class="input__wrap"]//input')
 
-    #SLIDER_POINT_LOCATOR = (By.XPATH, '//div[@class = "js-slider-handle-wrap"]')
     OPEN_SLIDER_LOCATOR = (By.XPATH, '//div[@data-scroll-name = "setting-age"]')
     SELECT_AGE_LOCATOR = (By.XPATH, '//div[@class="age-setting"]//div[@class="select"]')
     SELECT_CUSTOM_AGE_LOCATOR = (By.XPATH, '//div[@class="age-setting"]//div[@class="select"]//span[contains(text(), "Custom age set")]')
@@ -48,7 +46,7 @@ class CampaignPageLocators(StartPageLocators):
     GROUP_CONFIG_LOCATOR = (By.XPATH, '//div[@class="js-header-wrapper"]//span[contains(text(), "Groups and applications in social networks")]')
     ENTER_GROUP_LOCATOR = (By.XPATH, '//div[@class = "js-apps-and-groups-wrap"]//input')
     SELECT_GROUP_LOCATOR = (By.XPATH, '//div[contains(text(), "Select all")]')
-    CREATE_GRIUP_LOCATOR = (By.XPATH, '//div[@class = "js-apps-and-groups-wrap"]//div[@data-test="button"]//div[contains(text(),"Create")]')
+    CREATE_GROUP_LOCATOR = (By.XPATH, '//div[@class = "js-apps-and-groups-wrap"]//div[@data-test="button"]//div[contains(text(),"Create")]')
 
 
 
