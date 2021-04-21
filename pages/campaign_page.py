@@ -44,6 +44,9 @@ class CampaignPage(StartPage):
         else:
             self.click(self.locators.IMP_LOCATOR)
 
+
+
+
     def set_budget(self, daily, total):
 
         self.input(self.locators.DAILY_BUDGET_LOCATOR, daily)
@@ -67,10 +70,26 @@ class CampaignPage(StartPage):
        
 
 
+    def create_campaign(self, campaign_name, first_age, last_age, location, context_category, context, payment_type = 'click'):
+
+        self.set_campaign_name(campaign_name)
+        element = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(self.locators.CAMPAIGN_NAME_LOCATOR))
+        
+        self.choose_age(first_age,last_age)
+        WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(self.locators.OPEN_SLIDER_LOCATOR))
+        
+        self.add_location(location)
+        WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(self.locators.OPEN_LOCATION_LOCATOR))
+        
+        self.context_config(category = context_category,context = context)
+        WebDriverWait(self.driver, 6).until(EC.presence_of_element_located(self.locators.OPEN_CURRENT_OPTIONS_LOCATOR))
+        
+        
+        WebDriverWait(self.driver, 6).until(EC.presence_of_element_located(self.locators.PAYMENT_LOCATOR))
+        self.change_payment_type(payment_type)
+        
 
 
-      
-    
        
     def upload(self, file_path):
         self.click(self.locators.ADS_FORMAT_LOCATOR)
@@ -92,3 +111,15 @@ class CampaignPage(StartPage):
         self.clear(self.locators.CAMPAIGN_NAME_LOCATOR)
         self.input(self.locators.CAMPAIGN_NAME_LOCATOR, name)
 
+    def create_ad(self,file_path, ad_title,ad_text):
+        self.upload(file_path)
+        self.driver.implicitly_wait(3)
+
+        self.ad_info(ad_title = ad_title, ad_text = ad_text)
+        WebDriverWait(self.driver, 6).until(EC.presence_of_element_located(self.locators.AD_TITLE_LOCATOR))
+        
+        self.click(self.locators. SAVE_AD_LOCATOR)
+        WebDriverWait(self.driver, 6).until(EC.presence_of_element_located(self.locators.SAVE_AD_LOCATOR))
+
+        self.click(self.locators.CREATE_NEW_CAMPAIGN_LOCATOR)
+        self.driver.implicitly_wait(3)

@@ -1,6 +1,8 @@
 from pages.start_page import StartPage
 from locators.pages_locators import SegmentConfigPageLocators
 
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class SegmentConfigPage(StartPage):
@@ -41,5 +43,17 @@ class SegmentConfigPage(StartPage):
         self.click(self.locators.REMOVE_BUTTON_LOCATOR)
 
 
+    def create_segment(self, apps, groups):
+
+        self.switch_to_apps()
+        self.search_object(apps)
+        self.add_object()
+
+        self.switch_to_groups()
+
+        self.search_object(groups)
+        self.add_object()
+        WebDriverWait(self.driver, 6).until(EC.presence_of_element_located(self.locators.ADD_SEGMENT_BUTTON_LOCATOR))
+        self.click(self.locators.ADD_SEGMENT_BUTTON_LOCATOR)
         
         

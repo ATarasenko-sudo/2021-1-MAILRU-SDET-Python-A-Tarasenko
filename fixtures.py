@@ -2,6 +2,7 @@ import pytest
 import os
 import shutil
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 
 from pages.start_page import StartPage
 from pages.failed_autorization_page import FailAutorizationPage
@@ -41,8 +42,8 @@ def repo_root():
 @pytest.fixture(scope='function')
 def driver(config):
     url = config['url']
-    browser = webdriver.Chrome(executable_path='/home/ondrey/Desktop/autotest/HW2.1/chromedriver')
+    browser = webdriver.Chrome(ChromeDriverManager().install())
     browser.get(url)
     browser.maximize_window()
     yield browser
-    browser.close()
+    browser.quit()
