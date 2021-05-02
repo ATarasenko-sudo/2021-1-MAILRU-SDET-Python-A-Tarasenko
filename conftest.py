@@ -1,13 +1,12 @@
-import pytest
-from selenium import webdriver
-import time
+
+from fixtures import *
 
 
-@pytest.fixture(scope='session', autouse=True)
-def driver():
-    browser = webdriver.Chrome(executable_path='/home/ondrey/Desktop/autotest/HW1/chromedriver')
-    browser.get("https://target.my.com/")
-    browser.maximize_window()
-    time.sleep(2)
-    yield browser
-    browser.close()
+def pytest_addoption(parser):
+    parser.addoption('--url', default='https://target.my.com/')
+
+
+@pytest.fixture(scope='session')
+def config(request):
+    url = request.config.getoption('--url')
+    return {'url': url}

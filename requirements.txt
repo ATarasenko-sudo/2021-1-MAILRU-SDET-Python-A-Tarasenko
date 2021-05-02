@@ -1,0 +1,4 @@
+pytest
+selenium
+os
+webdriver_manager
