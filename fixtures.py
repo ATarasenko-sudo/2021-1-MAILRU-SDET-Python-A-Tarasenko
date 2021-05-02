@@ -1,6 +1,5 @@
 import pytest
 import os
-import shutil
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 
@@ -12,7 +11,7 @@ from pages.segment_config_page import SegmentConfigPage
 
 from locators.pages_locators import StartPageLocators
 from selenium.webdriver.common.by import By
-import time
+
 
 
 @pytest.fixture

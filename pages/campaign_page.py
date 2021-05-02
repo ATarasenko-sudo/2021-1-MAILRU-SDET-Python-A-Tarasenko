@@ -3,7 +3,7 @@ from locators.pages_locators import CampaignPageLocators
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 import pytest
-import time
+
 
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC

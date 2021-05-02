@@ -4,7 +4,6 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 from locators.pages_locators import StartPageLocators
 
-import time
 import pytest
 
 CLICK_RETRY = 3
